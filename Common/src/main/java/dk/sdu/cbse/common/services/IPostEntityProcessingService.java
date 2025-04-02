@@ -8,6 +8,10 @@ import dk.sdu.cbse.common.data.World;
  * @author jcs
  */
 public interface IPostEntityProcessingService {
-
+    /**
+     *
+     * @param gameData The context of the game
+     * @param world The world holds all entities
+     */
     void process(GameData gameData, World world);
 }

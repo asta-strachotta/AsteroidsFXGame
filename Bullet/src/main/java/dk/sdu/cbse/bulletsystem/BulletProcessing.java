@@ -17,7 +17,7 @@ public class BulletProcessing implements IEntityProcessingService, BulletSPI {
             bullet.setY(bullet.getY() + changeY * 3);
 
             if(bullet.getX() < 0 || bullet.getX() > gameData.getDisplayWidth() ||
-                bullet.getY() < 0 || bullet.getX() > gameData.getDisplayHeight()){
+                bullet.getY() < 0 || bullet.getY() > gameData.getDisplayHeight()){
 
                 world.removeEntity(bullet);
             }

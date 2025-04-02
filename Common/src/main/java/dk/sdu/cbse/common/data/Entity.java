@@ -12,7 +12,17 @@ public class Entity implements Serializable {
     private double y;
     private double rotation;
     private float radius;
-            
+    private boolean isCollided;
+
+    public boolean isCollided() {
+        return isCollided;
+    }
+
+    public void setCollided(boolean collided) {
+        isCollided = collided;
+    }
+
+
 
     public String getID() {
         return ID.toString();

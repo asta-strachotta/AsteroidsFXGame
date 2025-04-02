@@ -16,18 +16,17 @@ public class SpaceshipProcessing implements IEntityProcessingService {
     public void process(GameData gameData, World world) {
         Random random = new Random();
         for (Entity spaceship : world.getEntities(Spaceship.class)) {
-            if (random.nextDouble(0,1) < 0.3) {
-                spaceship.setRotation(spaceship.getRotation() - 5);
+
+            if(spaceship.isCollided()){
+                world.removeEntity(spaceship);
             }
-            if (random.nextDouble(0,1) > 0.3 && random.nextDouble(0,1) < 0.6){
-                spaceship.setRotation(spaceship.getRotation() + 5);
-            }
-            if (random.nextDouble(0,1) > 0.6 && random.nextDouble(0,1) < 0.9) {
-                double changeX = Math.cos(Math.toRadians(spaceship.getRotation()));
-                double changeY = Math.sin(Math.toRadians(spaceship.getRotation()));
-                spaceship.setX(spaceship.getX() + changeX);
-                spaceship.setY(spaceship.getY() + changeY);
-            }
+
+            int randoomInt = random.nextInt(-3,3);
+            spaceship.setRotation(spaceship.getRotation() + randoomInt);
+            double changeX = Math.cos(Math.toRadians(spaceship.getRotation()));
+            double changeY = Math.sin(Math.toRadians(spaceship.getRotation()));
+            spaceship.setX(spaceship.getX() + changeX);
+            spaceship.setY(spaceship.getY() + changeY);
 
             if (spaceship.getX() < 0) {
                 spaceship.setX(gameData.getDisplayWidth());
@@ -45,7 +44,7 @@ public class SpaceshipProcessing implements IEntityProcessingService {
                 spaceship.setY(1);
             }
 
-            if(random.nextDouble(0,1) > 0.9){
+            if(random.nextDouble(0,1) > 0.95){
                 getShooters().stream().findFirst().ifPresent(
                         bulletSPI -> {
                             world.addEntity(bulletSPI.createBullet(spaceship, gameData));
