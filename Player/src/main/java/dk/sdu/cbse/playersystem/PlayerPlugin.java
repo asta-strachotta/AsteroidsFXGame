@@ -1,4 +1,4 @@
-package dk.sdu.cbse.system;
+package dk.sdu.cbse.playersystem;
 
 import dk.sdu.cbse.common.data.Entity;
 import dk.sdu.cbse.common.data.GameData;
