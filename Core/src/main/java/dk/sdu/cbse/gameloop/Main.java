@@ -7,11 +7,15 @@ import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
 import dk.sdu.cbse.common.services.IGamePluginService;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
+
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 import static java.util.stream.Collectors.toList;
+
+import dk.sdu.cbse.common.services.ISpaceshipProvider;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -28,12 +32,17 @@ public class Main extends Application {
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
     private final Pane gameWindow = new Pane();
 
+    private ModuleLayer enemyLayer = LayerLoader.createLayer("./plugins", "EnemySpaceship");
+
+
     public static void main(String[] args) {
         launch(Main.class);
     }
 
+
     @Override
-    public void start(Stage window) throws Exception {
+    public void start(Stage window) {
+
         Text text = new Text(10, 20, "Destroyed asteroids: 0");
         gameWindow.setPrefSize(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         gameWindow.getChildren().add(text);
@@ -73,6 +82,9 @@ public class Main extends Application {
         for (IGamePluginService iGamePlugin : getPluginServices()) {
             iGamePlugin.start(gameData, world);
         }
+        for(ISpaceshipProvider spaceshipProvider : getSpaceshipProviders()){
+            spaceshipProvider.getPlugin().start(gameData, world);
+        }
         for (Entity entity : world.getEntities()) {
             Polygon polygon = new Polygon(entity.getPolygonCoordinates());
             polygons.put(entity, polygon);
@@ -102,7 +114,10 @@ public class Main extends Application {
         }
         for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
             postEntityProcessorService.process(gameData, world);
-        }       
+        }
+        for(ISpaceshipProvider spaceshipProvider : getSpaceshipProviders()){
+            spaceshipProvider.getProcess().process(gameData, world);
+        }
     }
 
     private void draw() {        
@@ -139,4 +154,13 @@ public class Main extends Application {
     private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
         return ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
+
+    private Collection<? extends ISpaceshipProvider> getSpaceshipProviders() {
+        List<ISpaceshipProvider> sl = ServiceLoader.load(enemyLayer, ISpaceshipProvider.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+
+//        return ServiceLoader.load(ISpaceshipProvider.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return sl;
+    }
+
+
 }

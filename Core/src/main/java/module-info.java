@@ -1,6 +1,7 @@
 import dk.sdu.cbse.common.services.IEntityProcessingService;
 import dk.sdu.cbse.common.services.IGamePluginService;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
+import dk.sdu.cbse.common.services.ISpaceshipProvider;
 
 module Core {
     requires Common;
@@ -9,4 +10,5 @@ module Core {
     uses IGamePluginService;
     uses IEntityProcessingService;
     uses IPostEntityProcessingService;
+    uses ISpaceshipProvider;
 }
