@@ -42,7 +42,6 @@ public class Main extends Application {
 
     @Override
     public void start(Stage window) {
-
         Text text = new Text(10, 20, "Destroyed asteroids: 0");
         gameWindow.setPrefSize(gameData.getDisplayWidth(), gameData.getDisplayHeight());
         gameWindow.getChildren().add(text);
@@ -156,10 +155,7 @@ public class Main extends Application {
     }
 
     private Collection<? extends ISpaceshipProvider> getSpaceshipProviders() {
-        List<ISpaceshipProvider> sl = ServiceLoader.load(enemyLayer, ISpaceshipProvider.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-
-//        return ServiceLoader.load(ISpaceshipProvider.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-        return sl;
+        return ServiceLoader.load(enemyLayer, ISpaceshipProvider.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
 
