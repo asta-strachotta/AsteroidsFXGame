@@ -5,6 +5,9 @@ import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IGamePluginService;
 
+import javax.swing.text.html.ImageView;
+import java.awt.*;
+
 public class SpaceshipPlugin implements IGamePluginService {
     private Entity spaceship;
 
@@ -23,6 +26,8 @@ public class SpaceshipPlugin implements IGamePluginService {
 
     private Entity createSpaceship(GameData gameData){
         Entity spaceship = new Spaceship();
+        spaceship.setHealth(10);
+        spaceship.setImagePath("enemyShip.png");
         spaceship.setPolygonCoordinates(-5,-5,10,0,-5,5);
         spaceship.setX((double) gameData.getDisplayHeight()/4);
         spaceship.setY((double) gameData.getDisplayWidth()/4);

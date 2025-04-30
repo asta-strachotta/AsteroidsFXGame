@@ -19,6 +19,8 @@ public class CollisionControl implements IPostEntityProcessingService {
                 if(collision(e,a)) {
                     e.setCollided(true);
                     a.setCollided(true);
+                    e.minusOneHP();
+                    a.minusOneHP();
                 }
             }
         }
