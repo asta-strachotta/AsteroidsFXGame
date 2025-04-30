@@ -14,6 +14,16 @@ public class Entity implements Serializable {
     private float radius;
     private boolean isCollided;
 
+    private int lives;
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
     public boolean isCollided() {
         return isCollided;
     }

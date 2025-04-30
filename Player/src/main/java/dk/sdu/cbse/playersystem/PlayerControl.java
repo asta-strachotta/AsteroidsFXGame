@@ -15,7 +15,8 @@ public class PlayerControl implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
         for (Entity player : world.getEntities(Player.class)) {
-            if (player.isCollided()){
+
+            if(player.getLives() <= 0){
                 world.removeEntity(player);
             }
 

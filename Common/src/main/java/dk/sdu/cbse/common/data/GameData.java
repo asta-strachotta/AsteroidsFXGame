@@ -6,6 +6,15 @@ public class GameData {
     private int displayHeight = 600;
     private final GameKeys keys = new GameKeys();
 
+    private int ticks;
+
+    public int getTicks() {
+        return ticks;
+    }
+
+    public void setTicks(int ticks) {
+        this.ticks = ticks;
+    }
 
     public GameKeys getKeys() {
         return keys;
