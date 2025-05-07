@@ -5,8 +5,16 @@ import dk.sdu.cbse.common.services.IPostEntityProcessingService;
 module Core {
     requires Common;
     requires javafx.graphics;
-    opens dk.sdu.cbse.gameloop to javafx.graphics;
+    requires spring.context;
+    requires spring.core;
+    requires spring.beans;
+
+    opens dk.sdu.cbse.gameloop to javafx.graphics, spring.context, spring.core;
+
     uses IGamePluginService;
     uses IEntityProcessingService;
     uses IPostEntityProcessingService;
+
+    exports dk.sdu.cbse.gameloop to spring.beans;
+
 }

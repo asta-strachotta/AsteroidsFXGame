@@ -20,6 +20,7 @@ public class AsteroidProcessing implements IEntityProcessingService {
                 if(asteroid.getRadius() > 7) {
                     splitter.createSplitAsteroid(asteroid, world);
                 }else {
+                    gameData.plusOneAsteroids();
                     world.removeEntity(asteroid);
                 }
             }

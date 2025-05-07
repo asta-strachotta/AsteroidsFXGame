@@ -19,10 +19,8 @@ public class CollisionControl implements IPostEntityProcessingService {
                 if(collision(e,a)) {
                     e.setCollided(true);
                     a.setCollided(true);
-                    e.setLives(e.getLives() -1);
-                    a.setLives(a.getLives() -1);
-                    System.out.println("e lives: " + e.getLives());
-                    System.out.println("a lives: " + a.getLives());
+                    e.minusOneHP();
+                    a.minusOneHP();
                 }
             }
         }

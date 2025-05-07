@@ -16,7 +16,7 @@ public class PlayerControl implements IEntityProcessingService {
     public void process(GameData gameData, World world) {
         for (Entity player : world.getEntities(Player.class)) {
 
-            if(player.getLives() <= 0){
+            if(player.getHealth() <= 0){
                 world.removeEntity(player);
             }
 

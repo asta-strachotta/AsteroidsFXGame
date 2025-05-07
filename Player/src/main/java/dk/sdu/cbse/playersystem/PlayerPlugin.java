@@ -23,7 +23,7 @@ public class PlayerPlugin implements IGamePluginService {
 
     private Entity createPlayer(GameData gameData){
         Entity player = new Player();
-        player.setLives(10);
+        player.setHealth(10);
         player.setPolygonCoordinates(-5,-5,10,0,-5,5);
         player.setX((double)gameData.getDisplayHeight()/2);
         player.setY((double)gameData.getDisplayWidth()/2);

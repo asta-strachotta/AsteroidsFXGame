@@ -14,14 +14,15 @@ public class Entity implements Serializable {
     private float radius;
     private boolean isCollided;
 
-    private int lives;
+    private int health;
+    private String imagePath;
 
-    public int getLives() {
-        return lives;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setLives(int lives) {
-        this.lives = lives;
+    public void setImagePath(String path) {
+        this.imagePath = path;
     }
 
     public boolean isCollided() {
@@ -32,7 +33,17 @@ public class Entity implements Serializable {
         isCollided = collided;
     }
 
+    public void setHealth(int health){
+        this.health = health;
+    }
 
+    public int getHealth(){
+        return health;
+    }
+
+    public void minusOneHP(){
+        health--;
+    }
 
     public String getID() {
         return ID.toString();

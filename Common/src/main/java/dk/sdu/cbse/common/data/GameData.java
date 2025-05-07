@@ -4,16 +4,16 @@ public class GameData {
 
     private int displayWidth  = 800 ;
     private int displayHeight = 600;
+    private int destroyedAsteroids = 0;
+
     private final GameKeys keys = new GameKeys();
 
-    private int ticks;
-
-    public int getTicks() {
-        return ticks;
+    public int getDestroyedAsteroids(){
+        return destroyedAsteroids;
     }
 
-    public void setTicks(int ticks) {
-        this.ticks = ticks;
+    public void plusOneAsteroids(){
+        destroyedAsteroids++;
     }
 
     public GameKeys getKeys() {

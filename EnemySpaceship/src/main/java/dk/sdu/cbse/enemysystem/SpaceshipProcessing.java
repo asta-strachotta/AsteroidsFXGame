@@ -16,8 +16,7 @@ public class SpaceshipProcessing implements IEntityProcessingService {
     public void process(GameData gameData, World world) {
         Random random = new Random();
         for (Entity spaceship : world.getEntities(Spaceship.class)) {
-
-            if(spaceship.isCollided()){
+            if(spaceship.getHealth() <= 0){
                 world.removeEntity(spaceship);
             }
 
