@@ -39,23 +39,23 @@ public class PlayerControl implements IEntityProcessingService {
             }
 
             if (player.getX() < 0) {
-                player.setX(1);
-            }
-
-            if (player.getX() > gameData.getDisplayWidth()) {
                 player.setX(gameData.getDisplayWidth()-1);
             }
 
+            if (player.getX() > gameData.getDisplayWidth()) {
+                player.setX(1);
+            }
+
             if (player.getY() < 0) {
-                player.setY(1);
+                player.setY(gameData.getDisplayHeight()-1);
             }
 
             if (player.getY() > gameData.getDisplayHeight()) {
-                player.setY(gameData.getDisplayHeight()-1);
+                player.setY(1);
             }
         }
     }
-    private List<BulletSPI> getShooters(){
+    List<BulletSPI> getShooters(){
         return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
     }
 }

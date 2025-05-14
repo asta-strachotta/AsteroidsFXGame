@@ -10,4 +10,5 @@ module Player {
     uses BulletSPI;
     provides IGamePluginService with PlayerPlugin;
     provides IEntityProcessingService with PlayerControl;
+    uses IEntityProcessingService;
 }
