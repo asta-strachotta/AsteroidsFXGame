@@ -9,13 +9,11 @@ import dk.sdu.cbse.common.services.IGamePluginService;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 import static java.util.stream.Collectors.toList;
 
-import dk.sdu.cbse.common.services.ISpaceshipProvider;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -81,9 +79,6 @@ public class Main extends Application {
         for (IGamePluginService iGamePlugin : getPluginServices()) {
             iGamePlugin.start(gameData, world);
         }
-        for(ISpaceshipProvider spaceshipProvider : getSpaceshipProviders()){
-            spaceshipProvider.getPlugin().start(gameData, world);
-        }
         for (Entity entity : world.getEntities()) {
             Polygon polygon = new Polygon(entity.getPolygonCoordinates());
             polygons.put(entity, polygon);
@@ -114,9 +109,6 @@ public class Main extends Application {
         for (IPostEntityProcessingService postEntityProcessorService : getPostEntityProcessingServices()) {
             postEntityProcessorService.process(gameData, world);
         }
-        for(ISpaceshipProvider spaceshipProvider : getSpaceshipProviders()){
-            spaceshipProvider.getProcess().process(gameData, world);
-        }
     }
 
     private void draw() {        
@@ -141,22 +133,19 @@ public class Main extends Application {
         }
 
     }
-
+    /*
+    fortæller lige serviceloaderen at der er en implementering på et andet lag. load det lag, og så kan den
+    hente alle implementeringer af servicen
+     */
     private Collection<? extends IGamePluginService> getPluginServices() {
-        return ServiceLoader.load(IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(enemyLayer, IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
     private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
-        return ServiceLoader.load(IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(enemyLayer, IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
     private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {
         return ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
-
-    private Collection<? extends ISpaceshipProvider> getSpaceshipProviders() {
-        return ServiceLoader.load(enemyLayer, ISpaceshipProvider.class).stream().map(ServiceLoader.Provider::get).collect(toList());
-    }
-
-
 }

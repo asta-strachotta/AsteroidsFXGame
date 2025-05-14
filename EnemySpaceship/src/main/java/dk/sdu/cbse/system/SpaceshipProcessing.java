@@ -4,7 +4,6 @@ import dk.sdu.cbse.common.data.Entity;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
-import dk.sdu.cbse.common.services.ISpaceshipProvider;
 import dk.sdu.cbse.commonbullet.BulletSPI;
 
 import java.util.List;
