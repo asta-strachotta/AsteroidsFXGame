@@ -3,8 +3,13 @@ package dk.sdu.cbse.gameloop;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
 import dk.sdu.cbse.common.services.IGamePluginService;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import org.springframework.web.client.RestTemplate;
+
+import org.springframework.boot.web.client.RestTemplateBuilder;
 
 import java.util.List;
 import java.util.ServiceLoader;
@@ -33,5 +38,10 @@ public class SpringConfig {
     @Bean
     public List<IPostEntityProcessingService> postProcesses(){
         return ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
+    }
+
+    @Bean
+    public RestTemplate restTemplate(){
+        return new RestTemplate();
     }
 }

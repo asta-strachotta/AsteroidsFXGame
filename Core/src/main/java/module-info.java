@@ -8,6 +8,8 @@ module Core {
     requires spring.context;
     requires spring.core;
     requires spring.beans;
+    requires spring.web;
+    requires spring.boot;
 
     opens dk.sdu.cbse.gameloop to javafx.graphics, spring.context, spring.core;
 

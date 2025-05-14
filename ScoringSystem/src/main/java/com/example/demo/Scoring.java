@@ -25,9 +25,9 @@ public class Scoring {
 		return "Total score is " + totalScore;
 	}
 
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
+//	@Bean
+//	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+//		return builder.build();
+//	}
 
 }
