@@ -20,13 +20,14 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-
+@Component
 public class Game {
 
     private List<IGamePluginService> plugins;
@@ -113,7 +114,6 @@ public class Game {
                 draw();
                 gameData.getKeys().update();
             }
-
         }.start();
     }
 
@@ -122,7 +122,7 @@ public class Game {
             entityProcessorService.process(gameData, world);
         }
         for (IPostEntityProcessingService postEntityProcessorService : postProcesses) {
-            postEntityProcessorService.process(gameData, world);
+            postEntityProcessorService.process(world);
         }
     }
 

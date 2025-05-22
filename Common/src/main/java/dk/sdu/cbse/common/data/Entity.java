@@ -13,7 +13,6 @@ public class Entity implements Serializable {
     private double rotation;
     private float radius;
     private boolean isCollided;
-
     private int health;
     private String imagePath;
 

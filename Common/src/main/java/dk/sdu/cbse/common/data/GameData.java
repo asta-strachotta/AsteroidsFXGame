@@ -12,7 +12,7 @@ public class GameData {
         return destroyedAsteroids;
     }
 
-    public void plusOneAsteroids(){
+    public void plusOneAsteroid(){
         destroyedAsteroids++;
     }
 

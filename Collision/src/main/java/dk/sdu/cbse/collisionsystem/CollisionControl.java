@@ -10,7 +10,7 @@ public class CollisionControl implements IPostEntityProcessingService {
     public CollisionControl(){}
 
     @Override
-    public void process(GameData gameData, World world) {
+    public void process(World world) {
         for(Entity e : world.getEntities()){
             for(Entity a : world.getEntities()){
                 if (e.getID().equals(a.getID()) || e.getClass().equals(a.getClass())) {

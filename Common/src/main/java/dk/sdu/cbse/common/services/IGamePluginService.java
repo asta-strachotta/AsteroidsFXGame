@@ -17,8 +17,8 @@ public interface IGamePluginService {
 
     /**
      * Removes an entity from the world
-     * @param gameData The context of the game
+//     * @param gameData The context of the game
      * @param world The world holds all entities
      */
-    void stop(GameData gameData, World world);
+    void stop(World world);
 }

@@ -4,6 +4,7 @@ import dk.sdu.cbse.common.services.IEntityProcessingService;
 import dk.sdu.cbse.common.services.IGamePluginService;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
@@ -11,14 +12,10 @@ import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
 @Configuration
+@ComponentScan(basePackages = "dk.sdu.cbse.gameloop")
 public class SpringConfig {
 
     public SpringConfig(){}
-
-    @Bean
-    public Game Game(){
-        return new Game(plugins(), processes(), postProcesses());
-    }
 
     @Bean
     public List<IGamePluginService> plugins(){

@@ -11,11 +11,11 @@ public class AsteroidSplitImpl implements IAsteroidSplitter {
         Entity splitA = new Asteroid();
         Entity splitB = new Asteroid();
 
-        splitA.setX(e.getX()+2);
-        splitA.setY(e.getY()+2);
+        splitA.setX(e.getX()+3);
+        splitA.setY(e.getY()+3);
 
-        splitB.setX(e.getX()-2);
-        splitB.setY(e.getY()-2);
+        splitB.setX(e.getX()-3);
+        splitB.setY(e.getY()-3);
 
         float size = e.getRadius() / 2;
 

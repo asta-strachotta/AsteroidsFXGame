@@ -15,7 +15,7 @@ public class BulletPlugin implements IGamePluginService {
     }
 
     @Override
-    public void stop(GameData gameData, World world) {
+    public void stop(World world) {
         for(Entity e : world.getEntities(Bullet.class)){
             world.removeEntity(e);
         }
