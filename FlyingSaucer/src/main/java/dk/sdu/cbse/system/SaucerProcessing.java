@@ -11,12 +11,12 @@ import java.util.Random;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
-public class SpaceshipProcessing implements IEntityProcessingService {
+public class SaucerProcessing implements IEntityProcessingService {
 
     @Override
     public void process(GameData gameData, World world) {
         Random random = new Random();
-        for (Entity spaceship : world.getEntities(Spaceship.class)) {
+        for (Entity spaceship : world.getEntities(FlyingSaucer.class)) {
 
             if (spaceship.isCollided()) {
                 world.removeEntity(spaceship);

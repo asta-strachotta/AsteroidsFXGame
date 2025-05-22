@@ -5,10 +5,10 @@ import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IGamePluginService;
 
-public class SpaceshipPlugin implements IGamePluginService {
+public class SaucerPlugin implements IGamePluginService {
     private Entity spaceship;
 
-    public SpaceshipPlugin() {}
+    public SaucerPlugin() {}
 
     @Override
     public void start(GameData gameData, World world) {
@@ -22,7 +22,7 @@ public class SpaceshipPlugin implements IGamePluginService {
     }
 
     private Entity createSpaceship(GameData gameData) {
-        Entity spaceship = new Spaceship();
+        Entity spaceship = new FlyingSaucer();
         spaceship.setPolygonCoordinates(-5, -5, 10, 0, -5, 5);
         spaceship.setX((double) gameData.getDisplayHeight() / 4);
         spaceship.setY((double) gameData.getDisplayWidth() / 4);

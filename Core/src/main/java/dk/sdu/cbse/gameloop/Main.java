@@ -30,7 +30,7 @@ public class Main extends Application {
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
     private final Pane gameWindow = new Pane();
 
-    private ModuleLayer enemyLayer = LayerLoader.createLayer("./plugins", "EnemySpaceship");
+    private ModuleLayer saucerLayer = LayerLoader.createLayer("./plugins", "FlyingSaucer");
 
 
     public static void main(String[] args) {
@@ -138,11 +138,11 @@ public class Main extends Application {
     hente alle implementeringer af servicen
      */
     private Collection<? extends IGamePluginService> getPluginServices() {
-        return ServiceLoader.load(enemyLayer, IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(saucerLayer, IGamePluginService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
     private Collection<? extends IEntityProcessingService> getEntityProcessingServices() {
-        return ServiceLoader.load(enemyLayer, IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
+        return ServiceLoader.load(saucerLayer, IEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(toList());
     }
 
     private Collection<? extends IPostEntityProcessingService> getPostEntityProcessingServices() {

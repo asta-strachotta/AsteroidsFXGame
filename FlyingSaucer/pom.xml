@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>EnemySpaceship</artifactId>
+    <artifactId>FlyingSaucer</artifactId>
 
     <properties>
         <maven.compiler.source>1.9</maven.compiler.source>
@@ -54,7 +54,7 @@
                   <configuration>
                     <target>
                       <mkdir dir="../plugins" />
-                      <copy file="../EnemySpaceship/target/EnemySpaceship-1.0-SNAPSHOT.jar"
+                      <copy file="../FlyingSaucer/target/FlyingSaucer-1.0-SNAPSHOT.jar"
                             todir="../plugins" />
                     </target>
                   </configuration>
