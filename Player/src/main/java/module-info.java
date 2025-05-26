@@ -7,8 +7,8 @@ import dk.sdu.cbse.playersystem.PlayerPlugin;
 module Player {
     requires Common;
     requires CommonBullet;
-    uses BulletSPI;
     provides IGamePluginService with PlayerPlugin;
     provides IEntityProcessingService with PlayerControl;
+    uses BulletSPI;
     uses IEntityProcessingService;
 }

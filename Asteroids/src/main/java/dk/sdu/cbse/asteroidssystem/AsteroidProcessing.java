@@ -4,8 +4,11 @@ import dk.sdu.cbse.common.data.Entity;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
+import dk.sdu.cbse.common.services.IScoreService;
 import dk.sdu.cbse.commonasteroids.Asteroid;
 import dk.sdu.cbse.commonasteroids.IAsteroidSplitter;
+
+import java.util.ServiceLoader;
 
 public class AsteroidProcessing implements IEntityProcessingService {
 
@@ -20,7 +23,7 @@ public class AsteroidProcessing implements IEntityProcessingService {
                 if(asteroid.getRadius() > 7) {
                     splitter.createSplitAsteroid(asteroid, world);
                 }else {
-                    gameData.plusOneAsteroids();
+                    getScoreService().putScore(1);
                     world.removeEntity(asteroid);
                 }
             }
@@ -47,5 +50,9 @@ public class AsteroidProcessing implements IEntityProcessingService {
                 asteroid.setY(1);
             }
         }
+    }
+
+    public IScoreService getScoreService(){
+        return ServiceLoader.load(IScoreService.class).stream().map(ServiceLoader.Provider::get).findFirst().get();
     }
 }

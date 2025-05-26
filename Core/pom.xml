@@ -80,6 +80,16 @@
             <artifactId>spring-boot</artifactId>
             <version>3.4.5</version>
         </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-commons</artifactId>
+            <version>1.14.6</version>
+        </dependency>
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-observation</artifactId>
+            <version>1.14.6</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -96,7 +106,8 @@
                         </goals>
                         <configuration>
                             <includeArtifactIds>javafx-controls,javafx-graphics,javafx-base,spring-context,
-                            spring-core,spring-beans,spring-aop,spring-expression,spring-jcl</includeArtifactIds>
+                            spring-core,spring-beans,spring-aop,spring-expression,spring-jcl,
+                            spring-web,micrometer-commons,micrometer-observation</includeArtifactIds>
                             <outputDirectory>../mods-mvn</outputDirectory>
                         </configuration>
                     </execution>

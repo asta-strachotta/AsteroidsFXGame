@@ -1,4 +1,4 @@
-package com.example.demo;
+package dk.sdu.cbse.scoringsystem;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

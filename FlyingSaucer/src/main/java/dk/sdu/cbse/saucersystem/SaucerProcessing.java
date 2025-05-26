@@ -1,9 +1,10 @@
-package dk.sdu.cbse.enemysystem;
+package dk.sdu.cbse.saucersystem;
 
 import dk.sdu.cbse.common.data.Entity;
 import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
+import dk.sdu.cbse.common.services.IScoreService;
 import dk.sdu.cbse.commonbullet.BulletSPI;
 
 import java.util.List;
@@ -11,13 +12,16 @@ import java.util.Random;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
-public class SpaceshipProcessing implements IEntityProcessingService {
+public class SaucerProcessing implements IEntityProcessingService {
     @Override
     public void process(GameData gameData, World world) {
         Random random = new Random();
-        for (Entity spaceship : world.getEntities(Spaceship.class)) {
+        for (Entity spaceship : world.getEntities(FlyingSaucer.class)) {
             if(spaceship.getHealth() <= 0){
                 world.removeEntity(spaceship);
+                ServiceLoader.load(IScoreService.class).stream().findFirst().ifPresent(
+                        scoreService -> scoreService.get().putScore(1)
+                );
             }
 
             int randoomInt = random.nextInt(-3,3);

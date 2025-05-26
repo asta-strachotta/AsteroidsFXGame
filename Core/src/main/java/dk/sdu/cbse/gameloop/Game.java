@@ -9,6 +9,7 @@ import dk.sdu.cbse.common.services.IEntityProcessingService;
 import dk.sdu.cbse.common.services.IGamePluginService;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
 
+import dk.sdu.cbse.common.services.IScoreService;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,13 +21,16 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 
 
-
+@Component
 public class Game {
 
     private List<IGamePluginService> plugins;
@@ -34,11 +38,14 @@ public class Game {
     private List<IPostEntityProcessingService> postProcesses;
 
     private final Pane gameWindow = new Pane();
-    private Text text;
+    private Text scoreText;
 
     private final GameData gameData = new GameData();
     private final World world = new World();
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
+
+
+
 
     @Autowired
     public Game(List<IGamePluginService> plugins, List<IEntityProcessingService> processes,
@@ -48,18 +55,30 @@ public class Game {
         this.postProcesses = postProcesses;
     }
 
+
     public void start(Stage primaryStage){
         ImageView backgroundImage = new ImageView(new Image("space.jpg"));
         backgroundImage.toBack();
         backgroundImage.setFitWidth(gameData.getDisplayWidth());
         backgroundImage.setFitHeight(gameData.getDisplayHeight());
 
-        text = new Text(10, 20, "Destroyed asteroids: " + gameData.getDestroyedAsteroids());
-        text.setFill(Color.WHITE);
-        text.toFront();
+//        text = new Text(10, 20, "Destroyed asteroids: " + gameData.getDestroyedAsteroids());
+
+        String currentScore = "0";
+//        String currentScore = "0";
+//        System.out.println("SCORE IS CURRENTLY: " + currentScore);
+
+
+
+        scoreText = new Text(10, 20, "Score: " + currentScore);
+
+//        System.out.println("SCORE IS CURRENTLY: " + currentScore);
+
+        scoreText.setFill(Color.WHITE);
+        scoreText.toFront();
 
         gameWindow.setPrefSize(gameData.getDisplayWidth(), gameData.getDisplayHeight());
-        gameWindow.getChildren().addAll(text, backgroundImage);
+        gameWindow.getChildren().addAll(scoreText, backgroundImage);
 
         Scene scene = new Scene(gameWindow);
         scene.setOnKeyPressed(event -> {
@@ -124,11 +143,11 @@ public class Game {
         for (IPostEntityProcessingService postEntityProcessorService : postProcesses) {
             postEntityProcessorService.process(gameData, world);
         }
+        ServiceLoader.load(IScoreService.class).stream().findFirst().ifPresent(
+                        scoreService -> scoreText.setText("Score: " + scoreService.get().getScore()));
     }
 
     private void draw() {
-        text.setText("Destroyed asteroids: " + gameData.getDestroyedAsteroids());
-
         for (Entity polygonEntity : polygons.keySet()) {
             if(!world.getEntities().contains(polygonEntity)){
                 Polygon removedPolygon = polygons.get(polygonEntity);

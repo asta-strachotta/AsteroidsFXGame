@@ -1,5 +1,6 @@
 package dk.sdu.cbse.common.services;
 
 public interface IScoreService {
-    void postScore(int score);
+    void putScore(int score);
+    String getScore();
 }
