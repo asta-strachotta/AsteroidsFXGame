@@ -1,8 +1,10 @@
 import dk.sdu.cbse.common.services.IEntityProcessingService;
 import dk.sdu.cbse.common.services.IGamePluginService;
+import dk.sdu.cbse.common.services.IPlayerDeathService;
 import dk.sdu.cbse.commonbullet.BulletSPI;
 import dk.sdu.cbse.playersystem.PlayerControl;
 import dk.sdu.cbse.playersystem.PlayerPlugin;
+
 
 module Player {
     requires Common;
@@ -10,4 +12,5 @@ module Player {
     uses BulletSPI;
     provides IGamePluginService with PlayerPlugin;
     provides IEntityProcessingService with PlayerControl;
+    provides IPlayerDeathService with PlayerControl;
 }

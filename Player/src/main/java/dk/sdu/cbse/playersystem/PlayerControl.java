@@ -5,19 +5,19 @@ import dk.sdu.cbse.common.data.GameData;
 import dk.sdu.cbse.common.data.GameKeys;
 import dk.sdu.cbse.common.data.World;
 import dk.sdu.cbse.common.services.IEntityProcessingService;
+import dk.sdu.cbse.common.services.IPlayerDeathService;
 import dk.sdu.cbse.commonbullet.BulletSPI;
 
 import java.util.List;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
-public class PlayerControl implements IEntityProcessingService {
+public class PlayerControl implements IEntityProcessingService, IPlayerDeathService {
     @Override
     public void process(GameData gameData, World world) {
         for (Entity player : world.getEntities(Player.class)) {
-
             if(player.getHealth() <= 0){
-                world.removeEntity(player);
+                player.setDead(true);
             }
 
             if (gameData.getKeys().isDown(GameKeys.LEFT)) {
@@ -57,5 +57,9 @@ public class PlayerControl implements IEntityProcessingService {
     }
     private List<BulletSPI> getShooters(){
         return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
+    }
+
+    public boolean isDead(World world){
+        return world.getEntities(Player.class).getFirst().isDead();
     }
 }

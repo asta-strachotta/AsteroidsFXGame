@@ -15,6 +15,15 @@ public class Entity implements Serializable {
     private boolean isCollided;
     private int health;
     private String imagePath;
+    private boolean isDead = false;
+
+    public boolean isDead() {
+        return isDead;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
 
     public String getImagePath() {
         return imagePath;

@@ -7,9 +7,11 @@ import dk.sdu.cbse.common.data.World;
 
 import dk.sdu.cbse.common.services.IEntityProcessingService;
 import dk.sdu.cbse.common.services.IGamePluginService;
+import dk.sdu.cbse.common.services.IPlayerDeathService;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,6 +35,7 @@ public class Game {
     private List<IGamePluginService> plugins;
     private List<IEntityProcessingService> processes;
     private List<IPostEntityProcessingService> postProcesses;
+    private IPlayerDeathService deathService;
 
     private final Pane gameWindow = new Pane();
     private Text text;
@@ -41,12 +44,19 @@ public class Game {
     private final World world = new World();
     private final Map<Entity, Polygon> polygons = new ConcurrentHashMap<>();
 
+    private Runnable onPlayerDeath;
+
     @Autowired
     public Game(List<IGamePluginService> plugins, List<IEntityProcessingService> processes,
-                List<IPostEntityProcessingService> postProcesses){
+                List<IPostEntityProcessingService> postProcesses, IPlayerDeathService deathService){
         this.plugins = plugins;
         this.processes = processes;
         this.postProcesses = postProcesses;
+        this.deathService = deathService;
+    }
+
+    public void setOnPlayerDeath(Runnable action){
+        onPlayerDeath = action;
     }
 
     public void start(Stage primaryStage){
@@ -123,6 +133,9 @@ public class Game {
         }
         for (IPostEntityProcessingService postEntityProcessorService : postProcesses) {
             postEntityProcessorService.process(world);
+        }
+        if(deathService.isDead(world)){
+            onPlayerDeath.run();
         }
     }
 

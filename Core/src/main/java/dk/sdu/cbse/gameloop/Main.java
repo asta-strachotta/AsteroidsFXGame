@@ -1,6 +1,7 @@
 package dk.sdu.cbse.gameloop;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -20,6 +21,11 @@ public class Main extends Application {
         context.refresh();
 
         Game game = context.getBean(Game.class);
+
+        game.setOnPlayerDeath(()-> {
+            Platform.exit();
+        });
+
         game.start(window);
         game.render();
     }

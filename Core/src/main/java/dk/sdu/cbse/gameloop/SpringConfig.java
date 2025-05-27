@@ -2,6 +2,7 @@ package dk.sdu.cbse.gameloop;
 
 import dk.sdu.cbse.common.services.IEntityProcessingService;
 import dk.sdu.cbse.common.services.IGamePluginService;
+import dk.sdu.cbse.common.services.IPlayerDeathService;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -30,5 +31,10 @@ public class SpringConfig {
     @Bean
     public List<IPostEntityProcessingService> postProcesses(){
         return ServiceLoader.load(IPostEntityProcessingService.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
+    }
+
+    @Bean
+    public IPlayerDeathService deathService(){
+        return ServiceLoader.load(IPlayerDeathService.class).stream().findFirst().get().get();
     }
 }

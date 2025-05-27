@@ -1,5 +1,6 @@
 import dk.sdu.cbse.common.services.IEntityProcessingService;
 import dk.sdu.cbse.common.services.IGamePluginService;
+import dk.sdu.cbse.common.services.IPlayerDeathService;
 import dk.sdu.cbse.common.services.IPostEntityProcessingService;
 
 module Core {
@@ -14,6 +15,7 @@ module Core {
     uses IGamePluginService;
     uses IEntityProcessingService;
     uses IPostEntityProcessingService;
+    uses IPlayerDeathService;
 
     exports dk.sdu.cbse.gameloop to spring.beans;
 
