@@ -35,7 +35,7 @@ public class Game {
     private List<IGamePluginService> plugins;
     private List<IEntityProcessingService> processes;
     private List<IPostEntityProcessingService> postProcesses;
-    private IPlayerDeathService deathService;
+    private List<IPlayerDeathService> deathService;
 
     private final Pane gameWindow = new Pane();
     private Text text;
@@ -48,7 +48,7 @@ public class Game {
 
     @Autowired
     public Game(List<IGamePluginService> plugins, List<IEntityProcessingService> processes,
-                List<IPostEntityProcessingService> postProcesses, IPlayerDeathService deathService){
+                List<IPostEntityProcessingService> postProcesses, List<IPlayerDeathService> deathService){
         this.plugins = plugins;
         this.processes = processes;
         this.postProcesses = postProcesses;
@@ -56,7 +56,7 @@ public class Game {
     }
 
     public void setOnPlayerDeath(Runnable action){
-        onPlayerDeath = action;
+            onPlayerDeath = action;
     }
 
     public void start(Stage primaryStage){
@@ -134,7 +134,7 @@ public class Game {
         for (IPostEntityProcessingService postEntityProcessorService : postProcesses) {
             postEntityProcessorService.process(world);
         }
-        if(deathService.isDead(world)){
+        if(!deathService.isEmpty() && deathService.getFirst().isDead(world)){
             onPlayerDeath.run();
         }
     }

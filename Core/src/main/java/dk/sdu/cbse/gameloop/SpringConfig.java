@@ -9,6 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.ServiceLoader;
 import java.util.stream.Collectors;
 
@@ -34,7 +35,7 @@ public class SpringConfig {
     }
 
     @Bean
-    public IPlayerDeathService deathService(){
-        return ServiceLoader.load(IPlayerDeathService.class).stream().findFirst().get().get();
+    public List<IPlayerDeathService> deathService(){
+        return ServiceLoader.load(IPlayerDeathService.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
     }
 }
