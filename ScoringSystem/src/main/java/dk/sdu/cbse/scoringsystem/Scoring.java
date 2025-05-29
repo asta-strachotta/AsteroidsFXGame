@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 public class Scoring{
 
 	private int totalScore = 0;
-	private final String URL = "http://localhost:8080";
 
 	public static void main(String[] args) {
 		SpringApplication.run(Scoring.class, args);

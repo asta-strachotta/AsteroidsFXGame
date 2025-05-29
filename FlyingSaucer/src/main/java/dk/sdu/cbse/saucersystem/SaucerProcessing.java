@@ -18,10 +18,10 @@ public class SaucerProcessing implements IEntityProcessingService {
         Random random = new Random();
         for (Entity spaceship : world.getEntities(FlyingSaucer.class)) {
             if(spaceship.getHealth() <= 0){
+                for(IScoreService scoreService : getScoreServices()){
+                    scoreService.putScore(1);
+                }
                 world.removeEntity(spaceship);
-                ServiceLoader.load(IScoreService.class).stream().findFirst().ifPresent(
-                        scoreService -> scoreService.get().putScore(1)
-                );
             }
 
             int randoomInt = random.nextInt(-3,3);
@@ -62,5 +62,8 @@ public class SaucerProcessing implements IEntityProcessingService {
         return ServiceLoader.load(BulletSPI.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
     }
 
+     private List<IScoreService> getScoreServices(){
+        return ServiceLoader.load(IScoreService.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
+    }
 
 }

@@ -8,7 +8,9 @@ import dk.sdu.cbse.common.services.IScoreService;
 import dk.sdu.cbse.commonasteroids.Asteroid;
 import dk.sdu.cbse.commonasteroids.IAsteroidSplitter;
 
+import java.util.List;
 import java.util.ServiceLoader;
+import java.util.stream.Collectors;
 
 public class AsteroidProcessing implements IEntityProcessingService {
 
@@ -23,7 +25,9 @@ public class AsteroidProcessing implements IEntityProcessingService {
                 if(asteroid.getRadius() > 7) {
                     splitter.createSplitAsteroid(asteroid, world);
                 }else {
-                    getScoreService().putScore(1);
+                    for(IScoreService scoreService : getScoreServices()){
+                        scoreService.putScore(1);
+                    }
                     world.removeEntity(asteroid);
                 }
             }
@@ -52,7 +56,7 @@ public class AsteroidProcessing implements IEntityProcessingService {
         }
     }
 
-    public IScoreService getScoreService(){
-        return ServiceLoader.load(IScoreService.class).stream().map(ServiceLoader.Provider::get).findFirst().get();
+     private List<IScoreService> getScoreServices(){
+        return ServiceLoader.load(IScoreService.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
     }
 }

@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -143,9 +144,10 @@ public class Game {
         for (IPostEntityProcessingService postEntityProcessorService : postProcesses) {
             postEntityProcessorService.process(gameData, world);
         }
-        ServiceLoader.load(IScoreService.class).stream().findFirst().ifPresent(
-                        scoreService -> scoreText.setText("Score: " + scoreService.get().getScore()));
-    }
+        for(IScoreService scoreService : getScoreServices()){
+                scoreText.setText("Score: " + scoreService.getScore());
+            }
+        }
 
     private void draw() {
         for (Entity polygonEntity : polygons.keySet()) {
@@ -168,5 +170,9 @@ public class Game {
             polygon.setRotate(entity.getRotation());
         }
 
+    }
+
+     private List<IScoreService> getScoreServices(){
+        return ServiceLoader.load(IScoreService.class).stream().map(ServiceLoader.Provider::get).collect(Collectors.toList());
     }
 }
